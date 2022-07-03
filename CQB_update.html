@@ -1,0 +1,43 @@
+{% extends "CQB_base.html" %}
+{% block title %}CQB Control Table{% endblock%}
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %}
+<h1>Update Recipe Information</h1>
+
+    <form action="/update/{{rcp_to_update.rcp_id}}" method="POST">
+        {{form.hidden_tag()}}
+      
+        {{form.rcp_name.label(class="form-label")}}
+        {{form.rcp_name(class="form-control", value=rcp_to_update.rcp_name)}}
+        <br/>
+        {{form.owner.label(class="form-label")}}
+        {{form.owner(class="form-control", value=rcp_to_update.owner)}}
+        <br/>
+        {{form.desc.label(class="form-label")}}
+        {{form.desc(class="form-control", value=rcp_to_update.desc)}}
+        <br/>
+        
+
+        {{ form.submit(class="btn btn-primary") }} 
+
+        <a href="{{url_for('delete', rcp_id=rcp_to_update.rcp_id)}}" class="btn btn-danger">Delete</a>
+
+
+        
+        
+        
+       
+
+
+    </form>
+
+<br/><br/><br/>
+{% endblock %}

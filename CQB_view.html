@@ -1,0 +1,38 @@
+{% extends "CQB_base.html" %}
+{% block title %}View all Users{% endblock %}
+{% block content %}
+<table class="table-hover table-bordered table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Number</th>
+            <th scope="col">Loop</th>
+            <th scope="col">Part</th>
+            <th scope="col">Layer Name</th>
+            <th scope="col">Recipe Name</th>
+            <th scope="col">Tool</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Recipe Number</th>
+            <th scope="col">AODX Number</th>
+            <th scope="col">Sample Rule Number</th>
+            <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for rcp_list in rcp_lists %}
+        <tr>
+        <td>{{ rcp_list.rcp_id }}</td>
+        <td>{{ rcp_list.loop }}</td>
+        <td>{{ rcp_list.rcp_part }}</td>
+        <td>{{ rcp_list.rcp_layer }}</td>
+        <td>{{ rcp_list.rcp_name }}</td>
+        <td>{{ rcp_list.tool }}</td>
+        <td>{{ rcp_list.owner }}</td>
+        <td>{{ rcp_list.tool }}BA{{ "%04d"%rcp_list.recipe_id }}</td>
+        <td>{{ rcp_list.tool }}BA{{ "%04d"%rcp_list.aodx_id }}</td>
+        <td>{{ rcp_list.tool }}BA{{ "%04d"%rcp_list.sample_id }}</td>
+        <td>{{ rcp_list.desc }}</td>
+        </tr>
+        {% endfor %} 
+    </tbody>
+    </table>
+{% endblock %}

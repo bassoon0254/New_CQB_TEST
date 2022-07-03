@@ -1,0 +1,129 @@
+{% extends "CQB_base.html" %}
+{% block title %}CQB Control Table{% endblock%}
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %}
+
+{% if rcp_name %}
+  <table class="table-hover table-bordered table-striped">
+  <thead>
+      <tr> 
+          <th scope="col">Number</th>
+          <th scope="col">Loop</th>
+          <th scope="col">Part</th>
+          <th scope="col">Layer Name</th>
+          <th scope="col">Recipe Name</th>
+          <th scope="col">Tool</th>
+          <th scope="col">Owner</th>
+          <th scope="col">Recipe Number</th>
+          <th scope="col">AODX Number</th>
+          <th scope="col">Sample Rule Number</th>
+          <th scope="col">Description</th>
+  </tr>
+  </thead>
+  <tbody>
+      {% for rcp_list in rcp_lists %}
+      <tr>
+      <td>{{ rcp_list.rcp_id }}</td>
+      <td>{{ rcp_list.loop }}</td>
+      <td>{{ rcp_list.rcp_part }}</td>
+      <td>{{ rcp_list.rcp_layer }}</td>
+      <td><a href="{{url_for('update', rcp_id = rcp_list.rcp_id)}}">{{ rcp_list.rcp_name }}</a></td>
+      <td>{{ rcp_list.tool }}</td>
+      <td>{{ rcp_list.owner }}</td>
+      <td>{{ rcp_list.tool }}BA{{ "%04d"%rcp_list.recipe_id }}</td>
+      <td>{{ rcp_list.tool }}AODX{{ "%04d"%rcp_list.aodx_id }}</td>
+      <td>{{ rcp_list.tool }}SAMPLE{{ "%04d"%rcp_list.sample_id }}</td>
+      <td>{{ rcp_list.desc }}</td>
+      </tr>
+      {% endfor %} 
+  </tbody>
+  </table>
+{% else %}
+    <form action="/rcp_name" method="POST">
+      <div class="row g-3">
+        <div class="col-6">
+        {{form.hidden_tag()}}
+        {{form.rcp_part.label(class="form-label")}}
+        {{form.rcp_part(class="form-control")}}
+        </div>
+        <div class="col-6">
+        {{form.rcp_layer.label(class="form-label")}}
+        {{form.rcp_layer(class="form-control")}}
+        </div>
+        <div class="col-12">
+         {{form.rcp_name.label(class="form-label")}}
+         {{form.rcp_name(class="form-control")}}
+        </div> 
+         <div class="col-12">
+         {{form.tool.label(class="form-label")}}
+         {{form.tool(class="form-control")}}
+        </div>
+         <div class="col-6">
+         {{form.owner.label(class="form-label")}}
+         {{form.owner(class="form-control")}}
+        </div>
+         <div class="col-6">
+          {{form.loop.label(class="form-label")}}
+          <select {{form.loop(class="form-control")}}>
+            <option selected>FEOL</option>
+            <option>MEOL</option>
+            <option>RPG</option>
+            <option>BEOL</option>
+          </select>
+         </div>
+         <div class="col-12">
+         {{form.desc.label(class="form-label")}}
+         {{form.desc(class="form-control")}}
+        </div>
+        <br/>
+        <div class="col-12">
+         {{ form.submit(class="btn btn-primary")}}
+        </div>
+      </div>
+    </form>
+
+<br/><br/><br/>
+<table class="table-hover table-bordered table-striped">
+  <thead>
+      <tr>
+          <th scope="col">Number</th>
+          <th scope="col">Loop</th>
+          <th scope="col">Part</th>
+          <th scope="col">Layer Name</th>
+          <th scope="col">Recipe Name</th>
+          <th scope="col">Tool</th>
+          <th scope="col">Owner</th>
+          <th scope="col">Recipe Number</th>
+          <th scope="col">AODX Number</th>
+          <th scope="col">Sample Rule Number</th>
+          <th scope="col">Description</th>
+  </tr>
+  </thead>
+  <tbody>
+      {% for rcp_list in rcp_lists %}
+      <tr>
+      <td>{{ rcp_list.rcp_id }}</td>
+      <td>{{ rcp_list.loop }}</td>
+      <td>{{ rcp_list.rcp_part }}</td>
+      <td>{{ rcp_list.rcp_layer }}</td>
+      <td><a href="{{url_for('update', rcp_id = rcp_list.rcp_id)}}">{{ rcp_list.rcp_name }}</a></td>
+      <td>{{ rcp_list.tool }}</td>
+      <td>{{ rcp_list.owner }}</td>
+      <td>{{ rcp_list.tool }}BA{{ "%04d"%rcp_list.recipe_id }}</td>
+      <td>{{ rcp_list.tool }}BA{{ "%04d"%rcp_list.aodx_id }}</td>
+      <td>{{ rcp_list.tool }}BA{{ "%04d"%rcp_list.sample_id }}</td>
+      <td>{{ rcp_list.desc }}</td>
+      </tr>
+      {% endfor %} 
+  </tbody>
+  </table>
+{% endif %}
+{% endblock %}
